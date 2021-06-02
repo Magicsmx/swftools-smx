@@ -232,7 +232,12 @@ int main (int argc,char ** argv)
     //wav_print(&wav);
     //wav_print(&wav2);
     samples = (U16*)wav2.data;
-    numsamples = wav2.size/2;
+
+    if(!wav_convert2mono(&wav, &wav2, samplerate))
+    {
+	msg("<fatal> Error convert %s to mono", filename);
+	exit(1);
+    }
 
 #ifdef WORDS_BIGENDIAN
     /* swap bytes */
